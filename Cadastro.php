@@ -11,7 +11,7 @@
 </head>
     <body>
         <?php
-        
+
             function media($nota1,$nota2) {
                 $media = ($nota1 + $nota2) / 2;
                 return $media;
@@ -26,15 +26,19 @@
                 fwrite($fluxoArquivo, "$media\n");
                 fclose($fluxoArquivo);
             }
-            
+            if($_SERVER["REQUEST_METHOD"] == "POST"){
             $nome = $_POST["nome"];
             $matricula = $_POST["matricula"];
             $nota1 = (float) $_POST["nota1"];
             $nota2 = (float) $_POST["nota2"];
             $media = media($nota1,$nota2);
+            }
 
+            if(isset($nome)){
             cadastro($nome,$matricula, $nota1, $nota2, $media);
-
+            header("location: Cadastro.php");
+            }
+            
             $cadastros = [];
             $cadastro = [];
             
@@ -48,6 +52,7 @@
                     $cadastros[] = $cadastro;
                 }
             fclose($fluxoArquivo);
+            
         ?>
         <table>
             <tr>
@@ -73,8 +78,8 @@
         <label for="active" class="menu-btn"><i class="fas fa-bars"></i></label>
         <div class="wrapper">
             <ul>
-                <li><a href="FormularioCadastro.html">Fazer Cadastro</a></li>
-                <li><a href="ExibirCadastro.php">Lista dos Cadastrados</a></li>
+                <li><a href="Cadastro.html">Fazer Cadastro</a></li>
+                <li><a href="Cadastro.php">Lista dos Cadastrados</a></li>
             </ul>
         </div>
     </body>
